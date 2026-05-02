@@ -3,529 +3,487 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Microbiome Scoping Review Screener</title>
+<title>Microbiome Abstract Screener</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
 <style>
-:root, [data-theme="light"] {
-  --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9;
-  --color-surface-offset: #f3f0ec; --color-divider: #dcd9d5; --color-border: #d4d1ca;
-  --color-text: #28251d; --color-text-muted: #7a7974; --color-text-faint: #bab9b4;
-  --color-primary: #01696f; --color-primary-hover: #0c4e54; --color-primary-highlight: #cedcd8;
-  --color-success: #437a22; --color-success-highlight: #d4dfcc;
-  --color-error: #a12c7b; --color-error-highlight: #e0ced7;
-  --color-gold: #d19900; --color-gold-highlight: #e9e0c6;
-  --color-warning: #964219; --color-warning-highlight: #ddcfc6;
-  --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
-  --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
-  --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
-  --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem;
-  --radius-xl: 1rem; --radius-full: 9999px;
-  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;
-  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
-  --space-12:3rem;--space-16:4rem;
-  --text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);
-  --text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);
-  --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
-  --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
-  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
-  --font-display:'Instrument Serif',Georgia,serif;
-  --font-body:'Inter',sans-serif;
-  --transition: 180ms cubic-bezier(0.16,1,0.3,1);
+:root {
+  --bg:#f7f6f2;--surf:#f9f8f5;--surf2:#fbfbf9;--surfoff:#f0ede8;
+  --div:#dcd9d5;--bor:#d4d1ca;
+  --tx:#28251d;--txm:#7a7974;--txf:#bab9b4;
+  --pri:#01696f;--prih:#0c4e54;
+  --ok:#437a22;--okbg:#d4dfcc;
+  --no:#a12c7b;--nobg:#e0ced7;
+  --ql:#b08000;--qlbg:#e9e0c6;
+  --sh:0 1px 3px rgba(0,0,0,.07);
+  --shm:0 4px 14px rgba(0,0,0,.09);
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--rpill:999px;
+  --f:'Inter',sans-serif;
 }
-[data-theme="dark"] {
-  --color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;
-  --color-surface-offset:#1d1c1a;--color-divider:#262523;--color-border:#393836;
-  --color-text:#cdccca;--color-text-muted:#797876;--color-text-faint:#5a5957;
-  --color-primary:#4f98a3;--color-primary-hover:#227f8b;--color-primary-highlight:#313b3b;
-  --color-success:#6daa45;--color-success-highlight:#3a4435;
-  --color-error:#d163a7;--color-error-highlight:#4c3d46;
-  --color-gold:#e8af34;--color-gold-highlight:#4d4332;
-  --shadow-sm:0 1px 2px oklch(0 0 0/0.2);--shadow-md:0 4px 12px oklch(0 0 0/0.3);
-  --shadow-lg:0 12px 32px oklch(0 0 0/0.4);
+[data-dark] {
+  --bg:#171614;--surf:#1d1c1a;--surf2:#222120;--surfoff:#252422;
+  --div:#2e2d2a;--bor:#3a3937;
+  --tx:#cccac7;--txm:#797876;--txf:#565452;
+  --pri:#4f98a3;--prih:#227f8b;
+  --ok:#6daa45;--okbg:#243318;
+  --no:#d163a7;--nobg:#3a1e30;
+  --ql:#d4a017;--qlbg:#372e0e;
+  --sh:0 1px 3px rgba(0,0,0,.3);--shm:0 4px 14px rgba(0,0,0,.4);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
-body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);
-  background:var(--color-bg);min-height:100dvh;line-height:1.6;}
+html{-webkit-font-smoothing:antialiased;}
+body{font-family:var(--f);font-size:15px;color:var(--tx);background:var(--bg);min-height:100vh;line-height:1.6;}
 button{cursor:pointer;border:none;background:none;font:inherit;color:inherit;}
-textarea,input,select{font:inherit;color:inherit;}
-h1,h2,h3,h4{line-height:1.2;text-wrap:balance;}
+textarea{font:inherit;color:inherit;}
 
-.app-header{background:var(--color-surface);border-bottom:1px solid var(--color-border);
-  padding:var(--space-4) var(--space-8);display:flex;align-items:center;
-  justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:var(--shadow-sm);}
-.logo{display:flex;align-items:center;gap:var(--space-3);}
-.logo-icon{width:36px;height:36px;}
-.logo-text h1{font-family:var(--font-display);font-size:var(--text-lg);}
-.logo-text p{font-size:var(--text-xs);color:var(--color-text-muted);max-width:none;}
-.header-actions{display:flex;gap:var(--space-2);align-items:center;}
-.btn-icon{width:36px;height:36px;border-radius:var(--radius-md);display:flex;
-  align-items:center;justify-content:center;color:var(--color-text-muted);
-  transition:background var(--transition),color var(--transition);}
-.btn-icon:hover{background:var(--color-surface-offset);color:var(--color-text);}
+.hdr{background:var(--surf);border-bottom:1px solid var(--bor);padding:12px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;box-shadow:var(--sh);}
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.hdr-icon{width:32px;height:32px;border-radius:8px;background:var(--pri);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-title{font-size:16px;font-weight:600;}
+.hdr-sub{font-size:12px;color:var(--txm);}
+.dark-btn{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;color:var(--txm);transition:background .15s,color .15s;}
+.dark-btn:hover{background:var(--surfoff);color:var(--tx);}
 
-.main{max-width:1140px;margin:0 auto;padding:var(--space-8) var(--space-6);
-  display:grid;grid-template-columns:1fr 340px;gap:var(--space-6);align-items:start;}
-@media(max-width:900px){.main{grid-template-columns:1fr;padding:var(--space-4);}
-  .criteria-panel{order:-1;}}
+.page{max-width:1080px;margin:0 auto;padding:28px 20px;
+  display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;}
+@media(max-width:820px){.page{grid-template-columns:1fr;padding:16px;}
+  .sidebar{order:-1;}}
 
-.panel{background:var(--color-surface);border:1px solid var(--color-border);
-  border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-sm);}
-.panel-header{padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--color-divider);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3);}
-.panel-title{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;
-  letter-spacing:0.06em;color:var(--color-text);}
-.panel-body{padding:var(--space-5) var(--space-6);}
+.card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r16);
+  overflow:hidden;box-shadow:var(--sh);}
+.card-hd{padding:14px 20px;border-bottom:1px solid var(--div);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.card-bd{padding:18px 20px;}
 
-/* Mode tabs */
-.mode-tabs{display:flex;gap:var(--space-1);background:var(--color-surface-offset);
-  border-radius:var(--radius-md);padding:3px;}
-.mode-tab{padding:var(--space-2) var(--space-4);border-radius:calc(var(--radius-md) - 2px);
-  font-size:var(--text-sm);font-weight:500;color:var(--color-text-muted);
-  transition:background var(--transition),color var(--transition);}
-.mode-tab.active{background:var(--color-surface);color:var(--color-text);
-  box-shadow:var(--shadow-sm);}
-.mode-tab:hover:not(.active){color:var(--color-text);}
+.tabs{display:flex;gap:2px;background:var(--surfoff);border-radius:8px;padding:3px;}
+.tab{padding:5px 16px;border-radius:6px;font-size:13px;font-weight:500;color:var(--txm);
+  transition:background .15s,color .15s;}
+.tab.on{background:var(--surf);color:var(--tx);box-shadow:var(--sh);}
 
-/* Input areas */
-.input-section{display:none;}
-.input-section.visible{display:block;}
+.pane{display:none;}
+.pane.show{display:block;}
 
-textarea{width:100%;background:var(--color-bg);border:1px solid var(--color-border);
-  border-radius:var(--radius-lg);padding:var(--space-4);font-size:var(--text-sm);
-  line-height:1.7;resize:vertical;color:var(--color-text);outline:none;
-  transition:border-color var(--transition),box-shadow var(--transition);}
-textarea:focus{border-color:var(--color-primary);
-  box-shadow:0 0 0 3px oklch(from var(--color-primary) l c h/0.15);}
-textarea::placeholder{color:var(--color-text-faint);}
-#singleAbstract{min-height:200px;}
-#batchInput{min-height:320px;}
+textarea.ta{width:100%;background:var(--bg);border:1px solid var(--bor);border-radius:10px;
+  padding:12px 14px;font-size:14px;line-height:1.7;resize:vertical;outline:none;
+  transition:border-color .15s,box-shadow .15s;}
+textarea.ta:focus{border-color:var(--pri);box-shadow:0 0 0 3px rgba(1,105,111,.15);}
+textarea.ta::placeholder{color:var(--txf);}
+#ta1{min-height:180px;}
 
-.hint{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2);
-  padding:var(--space-2) var(--space-3);background:var(--color-surface-offset);
-  border-radius:var(--radius-md);}
-.hint strong{color:var(--color-text);}
+.hint{margin-top:10px;font-size:12px;color:var(--txm);background:var(--surfoff);
+  padding:8px 12px;border-radius:8px;line-height:1.5;}
+.hint code{background:var(--div);padding:1px 5px;border-radius:3px;}
 
-.btn-row{margin-top:var(--space-4);display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;}
-.btn-primary{background:var(--color-primary);color:#fff;padding:var(--space-3) var(--space-6);
-  border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;
-  transition:background var(--transition),box-shadow var(--transition);box-shadow:var(--shadow-sm);
-  display:flex;align-items:center;gap:var(--space-2);}
-.btn-primary:hover{background:var(--color-primary-hover);box-shadow:var(--shadow-md);}
-.btn-secondary{background:transparent;color:var(--color-text-muted);padding:var(--space-3) var(--space-5);
-  border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;
-  border:1px solid var(--color-border);transition:background var(--transition),color var(--transition);}
-.btn-secondary:hover{background:var(--color-surface-offset);color:var(--color-text);}
+.batch-inputs{display:flex;flex-direction:column;gap:10px;}
+.batch-row{display:flex;gap:8px;align-items:flex-start;}
+.batch-num{min-width:26px;height:26px;border-radius:50%;background:var(--surfoff);
+  border:1px solid var(--bor);font-size:12px;font-weight:600;color:var(--txm);
+  display:flex;align-items:center;justify-content:center;margin-top:6px;flex-shrink:0;}
+.batch-ta{flex:1;min-height:100px;font-size:13px;}
+.rm-btn{margin-top:6px;width:26px;height:26px;border-radius:50%;border:1px solid var(--bor);
+  color:var(--txm);font-size:16px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .15s,color .15s;}
+.rm-btn:hover{background:var(--nobg);color:var(--no);}
 
-/* Stats bar */
-.stats-bar{display:flex;gap:var(--space-3);padding:var(--space-4) var(--space-6);
-  border-bottom:1px solid var(--color-divider);background:var(--color-surface-2);}
-.stat-pill{flex:1;text-align:center;padding:var(--space-3);border-radius:var(--radius-lg);
-  border:1px solid var(--color-border);}
-.stat-pill .num{font-size:var(--text-lg);font-weight:700;display:block;}
-.stat-pill .lbl{font-size:var(--text-xs);color:var(--color-text-muted);}
-.stat-pill.inc .num{color:var(--color-success);}
-.stat-pill.exc .num{color:var(--color-error);}
-.stat-pill.may .num{color:var(--color-gold);}
+.add-btn{margin-top:8px;width:100%;padding:8px;border-radius:8px;border:1px dashed var(--bor);
+  font-size:13px;color:var(--txm);transition:background .15s,color .15s;display:flex;
+  align-items:center;justify-content:center;gap:6px;}
+.add-btn:hover{background:var(--surfoff);color:var(--tx);}
 
-/* Result cards */
-.results-container{display:flex;flex-direction:column;gap:var(--space-4);}
-.result-card{border:1px solid var(--color-border);border-radius:var(--radius-lg);
-  overflow:hidden;box-shadow:var(--shadow-sm);}
-.result-card-header{padding:var(--space-4) var(--space-5);display:flex;
-  align-items:center;gap:var(--space-3);cursor:pointer;
-  transition:background var(--transition);}
-.result-card-header:hover{background:var(--color-surface-offset);}
-.verdict-badge{padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);
-  font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-  flex-shrink:0;}
-.verdict-badge.include{background:var(--color-success-highlight);color:var(--color-success);}
-.verdict-badge.exclude{background:var(--color-error-highlight);color:var(--color-error);}
-.verdict-badge.maybe{background:var(--color-gold-highlight);color:var(--color-gold);}
-.result-num{font-size:var(--text-xs);color:var(--color-text-faint);font-weight:600;
-  flex-shrink:0;min-width:24px;}
-.result-snippet{flex:1;font-size:var(--text-sm);color:var(--color-text-muted);
-  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.chevron{color:var(--color-text-faint);transition:transform var(--transition);flex-shrink:0;}
-.result-card.expanded .chevron{transform:rotate(180deg);}
+.btns{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;}
+.btn-go{background:var(--pri);color:#fff;padding:9px 20px;border-radius:8px;
+  font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;
+  transition:background .15s,box-shadow .15s;box-shadow:var(--sh);}
+.btn-go:hover{background:var(--prih);box-shadow:var(--shm);}
+.btn-cl{color:var(--txm);padding:9px 16px;border-radius:8px;font-size:13px;font-weight:500;
+  border:1px solid var(--bor);transition:background .15s,color .15s;}
+.btn-cl:hover{background:var(--surfoff);color:var(--tx);}
 
-.result-card-body{display:none;padding:var(--space-4) var(--space-5);
-  border-top:1px solid var(--color-divider);background:var(--color-surface-2);}
-.result-card.expanded .result-card-body{display:block;}
+.stats{display:flex;gap:10px;padding:12px 20px;border-bottom:1px solid var(--div);background:var(--surf2);}
+.st{flex:1;text-align:center;padding:10px 6px;border-radius:10px;border:1px solid var(--bor);}
+.st .n{font-size:22px;font-weight:700;display:block;}
+.st .l{font-size:11px;color:var(--txm);}
+.st.i .n{color:var(--ok);} .st.e .n{color:var(--no);} .st.m .n{color:var(--ql);}
 
-.criteria-breakdown{display:flex;flex-direction:column;gap:var(--space-2);}
-.criteria-row{display:flex;align-items:flex-start;gap:var(--space-3);
-  padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);
-  background:var(--color-surface);border:1px solid var(--color-divider);font-size:var(--text-sm);}
-.badge{flex-shrink:0;padding:2px var(--space-2);border-radius:var(--radius-full);
-  font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
-.badge.pass{background:var(--color-success-highlight);color:var(--color-success);}
-.badge.fail{background:var(--color-error-highlight);color:var(--color-error);}
-.badge.unclear{background:var(--color-gold-highlight);color:var(--color-gold);}
-.criteria-label{font-weight:600;color:var(--color-text);}
-.criteria-note{color:var(--color-text-muted);margin-top:2px;}
-.abstract-preview{margin-top:var(--space-4);padding:var(--space-3) var(--space-4);
-  background:var(--color-surface-offset);border-radius:var(--radius-md);
-  font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;
-  max-height:120px;overflow-y:auto;}
+.results{display:flex;flex-direction:column;gap:12px;}
+.rc{border:1px solid var(--bor);border-radius:12px;overflow:hidden;}
+.rc-hd{padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;
+  transition:background .15s;user-select:none;}
+.rc-hd:hover{background:var(--surfoff);}
+.vb{padding:2px 10px;border-radius:var(--rpill);font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;}
+.vb.include{background:var(--okbg);color:var(--ok);}
+.vb.exclude{background:var(--nobg);color:var(--no);}
+.vb.maybe{background:var(--qlbg);color:var(--ql);}
+.rnum{font-size:11px;color:var(--txf);font-weight:600;min-width:20px;flex-shrink:0;}
+.rsnip{flex:1;font-size:13px;color:var(--txm);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.chev{color:var(--txf);flex-shrink:0;transition:transform .2s;}
+.rc.open .chev{transform:rotate(180deg);}
+.rc-bd{display:none;padding:14px 16px;border-top:1px solid var(--div);background:var(--surf2);}
+.rc.open .rc-bd{display:block;}
 
-/* Criteria panel */
-.criteria-panel{position:sticky;top:80px;}
-.criteria-group{margin-bottom:var(--space-4);}
-.criteria-group:last-child{margin-bottom:0;}
-.criteria-group-title{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;
-  letter-spacing:0.07em;color:var(--color-text-muted);margin-bottom:var(--space-2);
-  padding-bottom:var(--space-2);border-bottom:1px solid var(--color-divider);}
-.tag-row{display:flex;flex-wrap:wrap;gap:var(--space-1);}
-.tag{padding:2px var(--space-2);border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:500;}
-.tag.inc{background:var(--color-success-highlight);color:var(--color-success);}
-.tag.exc{background:var(--color-error-highlight);color:var(--color-error);}
+.crows{display:flex;flex-direction:column;gap:8px;}
+.crow{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
+  border-radius:8px;background:var(--surf);border:1px solid var(--div);font-size:13px;}
+.bd{flex-shrink:0;padding:2px 8px;border-radius:var(--rpill);font-size:11px;
+  font-weight:700;text-transform:uppercase;}
+.bd.pass{background:var(--okbg);color:var(--ok);}
+.bd.fail{background:var(--nobg);color:var(--no);}
+.bd.unclear{background:var(--qlbg);color:var(--ql);}
+.clbl{font-weight:600;color:var(--tx);}
+.cnote{color:var(--txm);margin-top:2px;font-size:12px;}
+.prev{margin-top:10px;padding:10px 12px;background:var(--surfoff);border-radius:8px;
+  font-size:12px;color:var(--txm);line-height:1.6;max-height:90px;overflow-y:auto;}
 
-.empty-state{text-align:center;padding:var(--space-12) var(--space-6);color:var(--color-text-faint);}
-.empty-state svg{margin:0 auto var(--space-4);opacity:0.4;}
-.empty-state p{font-size:var(--text-sm);max-width:30ch;margin:0 auto;}
+.exp-wrap{padding:12px 20px;border-top:1px solid var(--div);}
+.exp-btn{width:100%;padding:9px;border-radius:8px;border:1px solid var(--bor);
+  background:var(--surf2);font-size:13px;font-weight:500;color:var(--txm);
+  display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;}
+.exp-btn:hover{background:var(--surfoff);color:var(--tx);}
 
-.export-btn{width:100%;padding:var(--space-3);border-radius:var(--radius-md);
-  border:1px solid var(--color-border);background:var(--color-surface-2);
-  font-size:var(--text-sm);font-weight:500;color:var(--color-text-muted);
-  transition:all var(--transition);display:flex;align-items:center;justify-content:center;
-  gap:var(--space-2);}
-.export-btn:hover{background:var(--color-surface-offset);color:var(--color-text);}
-.export-row{padding:var(--space-4) var(--space-6);border-top:1px solid var(--color-divider);}
+.sidebar{position:sticky;top:70px;}
+.cg{margin-bottom:14px;}
+.cg:last-child{margin-bottom:0;}
+.cg-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--txm);margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--div);}
+.tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{padding:2px 8px;border-radius:var(--rpill);font-size:11px;font-weight:500;}
+.tag.i{background:var(--okbg);color:var(--ok);}
+.tag.e{background:var(--nobg);color:var(--no);}
 </style>
 </head>
 <body>
 
-<header class="app-header">
-  <div class="logo">
-    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-label="Screener">
-      <rect width="36" height="36" rx="10" fill="var(--color-primary)"/>
-      <circle cx="18" cy="14" r="5" stroke="#fff" stroke-width="2"/>
-      <path d="M10 26c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-      <path d="M23 19l3 3-3 3" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <div class="logo-text">
-      <h1>Abstract Screener</h1>
-      <p>Dietary Interventions &amp; Gut Microbiome · Scoping Review</p>
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+        <path d="M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
+        <path d="M4 22c0-4.418 3.582-8 8-8s8 3.582 8 8"/>
+      </svg>
+    </div>
+    <div>
+      <div class="hdr-title">Abstract Screener</div>
+      <div class="hdr-sub">Dietary Interventions &amp; Gut Microbiome &middot; Scoping Review</div>
     </div>
   </div>
-  <div class="header-actions">
-    <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-  </div>
+  <button class="dark-btn" id="darkBtn" aria-label="Toggle dark mode">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
 </header>
 
-<main class="main">
+<div class="page">
   <div>
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-title">Screen Abstracts</span>
-        <div class="mode-tabs">
-          <button class="mode-tab active" onclick="switchMode('single', this)">Single</button>
-          <button class="mode-tab" onclick="switchMode('batch', this)">Batch</button>
+    <!-- Input card -->
+    <div class="card">
+      <div class="card-hd">
+        <span class="card-title">Screen Abstracts</span>
+        <div class="tabs">
+          <button class="tab on" id="tab1" onclick="setTab(1)">Single</button>
+          <button class="tab" id="tab2" onclick="setTab(2)">Batch</button>
         </div>
       </div>
-      <div class="panel-body">
-        <!-- Single mode -->
-        <div class="input-section visible" id="singleSection">
-          <textarea id="singleAbstract" placeholder="Paste one abstract here..."></textarea>
-          <div class="btn-row">
-            <button class="btn-primary" onclick="runSingle()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <div class="card-bd">
+
+        <!-- Single pane -->
+        <div class="pane show" id="pane1">
+          <textarea class="ta" id="ta1" placeholder="Paste one abstract here..."></textarea>
+          <div class="btns">
+            <button class="btn-go" onclick="doSingle()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               Screen Abstract
             </button>
-            <button class="btn-secondary" onclick="clearSingle()">Clear</button>
+            <button class="btn-cl" onclick="document.getElementById('ta1').value='';hideResults()">Clear</button>
           </div>
         </div>
-        <!-- Batch mode -->
-        <div class="input-section" id="batchSection">
-          <textarea id="batchInput" placeholder="Abstract 1&#10;Title: Diet and gut microbiome...&#10;&#10;---&#10;&#10;Abstract 2&#10;Title: Probiotic supplementation..."></textarea>
-          <div class="hint">
-            <strong>How to separate abstracts:</strong> Put <code>---</code> on its own line between each abstract. You can paste as many as you like at once.
+
+        <!-- Batch pane -->
+        <div class="pane" id="pane2">
+          <div class="batch-inputs" id="batchInputs">
+            <div class="batch-row" id="br0">
+              <div class="batch-num">1</div>
+              <textarea class="ta batch-ta" id="ba0" placeholder="Paste abstract 1 here..."></textarea>
+              <button class="rm-btn" onclick="removeAbstract(0)" title="Remove">&#x2715;</button>
+            </div>
           </div>
-          <div class="btn-row">
-            <button class="btn-primary" onclick="runBatch()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              Screen All Abstracts
+          <button class="add-btn" onclick="addAbstract()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add another abstract
+          </button>
+          <div class="btns">
+            <button class="btn-go" onclick="doBatch()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Screen All
             </button>
-            <button class="btn-secondary" onclick="clearBatch()">Clear</button>
+            <button class="btn-cl" onclick="clearBatch()">Clear all</button>
           </div>
         </div>
+
       </div>
     </div>
 
-    <!-- Results panel -->
-    <div id="resultsPanel" style="margin-top:var(--space-6);display:none;" class="panel">
-      <div class="panel-header">
-        <span class="panel-title" id="resultsTitle">Results</span>
+    <!-- Results card -->
+    <div class="card" id="rPanel" style="margin-top:20px;display:none;">
+      <div class="card-hd"><span class="card-title" id="rTitle">Results</span></div>
+      <div class="stats">
+        <div class="st i"><span class="n" id="sI">0</span><span class="l">Include</span></div>
+        <div class="st e"><span class="n" id="sE">0</span><span class="l">Exclude</span></div>
+        <div class="st m"><span class="n" id="sM">0</span><span class="l">Unclear</span></div>
       </div>
-      <div class="stats-bar">
-        <div class="stat-pill inc"><span class="num" id="statInc">0</span><span class="lbl">Include</span></div>
-        <div class="stat-pill exc"><span class="num" id="statExc">0</span><span class="lbl">Exclude</span></div>
-        <div class="stat-pill may"><span class="num" id="statMay">0</span><span class="lbl">Unclear</span></div>
-      </div>
-      <div class="panel-body" id="resultsBody"></div>
-      <div class="export-row">
-        <button class="export-btn" onclick="exportCSV()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export Results as CSV
+      <div class="card-bd" id="rBody"></div>
+      <div class="exp-wrap">
+        <button class="exp-btn" onclick="exportCSV()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export as CSV
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Criteria reference -->
-  <div class="criteria-panel panel">
-    <div class="panel-header"><span class="panel-title">Criteria Reference</span></div>
-    <div class="panel-body">
-      <div class="criteria-group">
-        <div class="criteria-group-title">Study Design</div>
-        <div class="tag-row">
-          <span class="tag inc">RCT</span><span class="tag inc">Observational</span>
-          <span class="tag inc">Cohort</span><span class="tag inc">Pre-post</span>
-          <span class="tag exc">Reviews</span><span class="tag exc">No published data</span>
+  <!-- Sidebar -->
+  <div class="sidebar card">
+    <div class="card-hd"><span class="card-title">Criteria Reference</span></div>
+    <div class="card-bd">
+      <div class="cg">
+        <div class="cg-t">Study Design</div>
+        <div class="tags">
+          <span class="tag i">RCT</span><span class="tag i">Observational</span>
+          <span class="tag i">Cohort</span><span class="tag i">Pre-post</span>
+          <span class="tag e">Reviews</span><span class="tag e">No published data</span>
         </div>
       </div>
-      <div class="criteria-group">
-        <div class="criteria-group-title">Population</div>
-        <div class="tag-row">
-          <span class="tag inc">Adults ≥18 yrs</span><span class="tag inc">Human</span>
-          <span class="tag inc">Any health status</span><span class="tag inc">In vivo</span>
-          <span class="tag exc">Children</span><span class="tag exc">Babies</span>
-          <span class="tag exc">Adolescents</span><span class="tag exc">Animal</span>
-          <span class="tag exc">Rat / Mouse</span><span class="tag exc">In vitro</span><span class="tag exc">Ex vivo</span>
+      <div class="cg">
+        <div class="cg-t">Population</div>
+        <div class="tags">
+          <span class="tag i">Adults &ge;18</span><span class="tag i">Human</span>
+          <span class="tag i">Any health status</span>
+          <span class="tag e">Children</span><span class="tag e">Adolescents</span>
+          <span class="tag e">Animal</span><span class="tag e">Rat/Mouse</span>
+          <span class="tag e">In vitro</span><span class="tag e">Ex vivo</span>
         </div>
       </div>
-      <div class="criteria-group">
-        <div class="criteria-group-title">Intervention / Exposure</div>
-        <div class="tag-row">
-          <span class="tag inc">Whole foods</span><span class="tag inc">Dietary patterns</span>
-          <span class="tag inc">Omega-3</span><span class="tag inc">Polyphenols</span>
-          <span class="tag inc">Micronutrients</span><span class="tag inc">Fibre</span>
-          <span class="tag inc">Prebiotics</span>
-          <span class="tag exc">Probiotics</span><span class="tag exc">Synbiotics</span><span class="tag exc">FMT</span>
+      <div class="cg">
+        <div class="cg-t">Intervention</div>
+        <div class="tags">
+          <span class="tag i">Whole foods</span><span class="tag i">Dietary patterns</span>
+          <span class="tag i">Omega-3</span><span class="tag i">Polyphenols</span>
+          <span class="tag i">Micronutrients</span><span class="tag i">Fibre</span>
+          <span class="tag i">Prebiotics</span>
+          <span class="tag e">Probiotics</span><span class="tag e">Synbiotics</span><span class="tag e">FMT</span>
         </div>
       </div>
-      <div class="criteria-group">
-        <div class="criteria-group-title">Comparator</div>
-        <div class="tag-row">
-          <span class="tag inc">Any comparator</span><span class="tag inc">Placebo</span>
-          <span class="tag inc">Usual diet</span><span class="tag inc">Different dose</span>
-        </div>
-      </div>
-      <div class="criteria-group">
-        <div class="criteria-group-title">Outcome Resolution</div>
-        <div class="tag-row">
-          <span class="tag inc">Species-level</span><span class="tag inc">SGB</span>
-          <span class="tag inc">Shotgun metagenomics</span><span class="tag inc">Species name (spp.)</span>
-          <span class="tag exc">Genus/family/phylum only</span><span class="tag exc">Alpha/beta diversity only</span>
+      <div class="cg">
+        <div class="cg-t">Outcome Resolution</div>
+        <div class="tags">
+          <span class="tag i">Species-level</span><span class="tag i">SGB</span>
+          <span class="tag i">Shotgun metagenomics</span><span class="tag i">spp.</span>
+          <span class="tag e">Genus/family only</span><span class="tag e">Diversity only</span>
         </div>
       </div>
     </div>
   </div>
-</main>
+</div>
 
 <script>
-let currentMode = 'single';
-let lastResults = [];
+// ---- State ----
+var batchCount = 1;
+var lastResults = [];
 
-const criteria = {
-  studyDesign: {
-    include: ['randomized controlled trial','randomised controlled trial','rct','observational study','cohort study','cohort','pre-post','pre/post','before and after','crossover','cross-over','quasi-experimental','clinical trial','intervention study','pilot study','feasibility study'],
-    exclude: ['systematic review','meta-analysis','literature review','narrative review','scoping review','review article','review of','pooled analysis','unpublished']
-  },
-  population: {
-    include: ['adult','adults','human','humans','participant','patients','men','women','male','female','healthy volunteer','overweight','obese','type 2 diabetes','inflammatory bowel','cardiovascular','elderly','older adults','postmenopausal'],
-    exclude: ['children','child','infant','infants','baby','babies','neonatal','neonate','adolescent','adolescents','teenager','teenagers','pediatric','paediatric','rat','rats','mouse','mice','murine','animal model','in vitro','ex vivo','cell line','cell culture','porcine','pig','piglet']
-  },
-  intervention: {
-    include: ['diet','dietary','food','nutrition','whole food','whole-food','mediterranean','plant-based','vegan','vegetarian','omega-3','omega 3','n-3','polyphenol','flavonoid','antioxidant','micronutrient','fibre','fiber','prebiotic','fermentable','resistant starch','inulin','fructooligosaccharide','fos','dietary pattern','caloric restriction','calorie restriction','dash diet','western diet','high-fat','low-fat','high-fibre','low-carbohydrate','ketogenic','intermittent fasting','time-restricted','food supplementation','nutritional intervention'],
-    exclude: ['probiotic','probiotics','synbiotic','synbiotics','fecal microbiota transplant','faecal microbiota transplant','fmt','bacteriotherapy','stool transplant']
-  },
-  outcome: {
-    include: ['species','spp.','species-level','species level','metagenomic','metagenomics','shotgun','whole genome sequencing','wgs','sgb','metagenome-assembled','mag','species richness','bacteroides fragilis','faecalibacterium prausnitzii','bifidobacterium longum','lachnospiraceae','ruminococcus','akkermansia muciniphila','prevotella copri','roseburia','blautia','eubacterium','clostridium','parabacteroides'],
-    exclude_only: ['genus level','family level','phylum level','16s rrna','16s rdna','amplicon sequencing','otu','asv','operational taxonomic']
+// ---- Criteria lists ----
+var INC_DESIGN = ['randomized controlled trial','randomised controlled trial','double-blind','single-blind','placebo-controlled','parallel-group','parallel group','crossover trial','cross-over trial','clinical trial','intervention study','cohort study','prospective cohort','retrospective cohort','observational study','pre-post study','before-and-after','quasi-experimental','pilot study','feasibility study'];
+var EXC_DESIGN = ['systematic review','meta-analysis','literature review','narrative review','scoping review','review article','review of studies','pooled analysis','cochrane'];
+
+var INC_POP = ['adult','adults','human subjects','healthy volunteers','overweight','obese','obesity','type 2 diabetes','t2dm','inflammatory bowel','ibd','cardiovascular','metabolic syndrome','elderly','older adults','postmenopausal','middle-aged','men and women','male and female'];
+var EXC_POP = ['children','child ','infant ','infants','baby','babies','neonatal','neonate','adolescent','adolescents','teenager','pediatric','paediatric',' rat ',' rats ',' mouse ',' mice ','murine','rodent','animal model','in vitro','ex vivo','cell line','cell culture','porcine',' pig ','piglet','zebrafish'];
+
+var INC_INT = ['dietary intervention','diet intervention','nutritional intervention','food intervention','mediterranean diet','plant-based diet','vegan diet','vegetarian diet','whole food','whole-food','high-fibre','high-fiber','low-carbohydrate','ketogenic diet','intermittent fasting','time-restricted eating','caloric restriction','calorie restriction','omega-3','omega 3 fatty','n-3 fatty','fish oil','polyphenol','flavonoid','resveratrol','antioxidant supplement','micronutrient','vitamin d','zinc supplement','prebiotic','inulin','fructooligosaccharide','resistant starch','dietary fibre','dietary fiber','fermentable fibre','fruit and vegetable','dietary pattern','western diet','dash diet','high-fat diet','low-fat diet','legume','nuts and seeds','whole grain'];
+var EXC_INT = ['probiotic supplementation','probiotic capsule','probiotic tablet','probiotic drink','probiotic yogurt','synbiotic','fecal microbiota transplant','faecal microbiota transplant','fmt','stool transplant','bacteriotherapy','live bacteria supplement'];
+
+var INC_OUT = ['species-level','species level','shotgun metagenomic','whole-genome shotgun','whole genome shotgun','metagenomic sequencing','shotgun sequencing','metagenome-assembled','wgs sequencing','sgb ','sgbs','species-genome bin','faecalibacterium prausnitzii','akkermansia muciniphila','bifidobacterium longum','prevotella copri','ruminococcus gnavus','roseburia intestinalis','blautia obeum','eubacterium rectale','bacteroides thetaiotaomicron','species richness at species','spp.','at the species level','species abundance'];
+var EXC_OUT = ['16s rrna gene','16s rdna','amplicon sequencing','operational taxonomic unit','otu-based','asv-based','only alpha diversity','only beta diversity','genus level only','family level','phylum level','genus and family'];
+
+function contains(text, list) {
+  for (var i = 0; i < list.length; i++) {
+    if (text.indexOf(list[i]) !== -1) return list[i];
   }
-};
-
-function checkCriteria(text) {
-  const t = text.toLowerCase();
-  const r = {};
-
-  const hasExcDesign = criteria.studyDesign.exclude.some(k => t.includes(k));
-  const hasIncDesign = criteria.studyDesign.include.some(k => t.includes(k));
-  if (hasExcDesign) r.studyDesign = { status:'fail', note:'Appears to be a review article — excluded.' };
-  else if (hasIncDesign) r.studyDesign = { status:'pass', note:'Eligible study design identified.' };
-  else r.studyDesign = { status:'unclear', note:'Study design not clearly described — check full text.' };
-
-  const hasExcPop = criteria.population.exclude.some(k => t.includes(k));
-  const hasIncPop = criteria.population.include.some(k => t.includes(k));
-  if (hasExcPop) {
-    const found = criteria.population.exclude.filter(k => t.includes(k)).slice(0,2).join(', ');
-    r.population = { status:'fail', note:`Excluded population detected: ${found}.` };
-  } else if (hasIncPop) r.population = { status:'pass', note:'Human adult population confirmed.' };
-  else r.population = { status:'unclear', note:'Population not clearly described — verify age and species.' };
-
-  const hasExcInt = criteria.intervention.exclude.some(k => t.includes(k));
-  const hasIncInt = criteria.intervention.include.some(k => t.includes(k));
-  if (hasExcInt && !hasIncInt) {
-    const found = criteria.intervention.exclude.filter(k => t.includes(k)).slice(0,2).join(', ');
-    r.intervention = { status:'fail', note:`Excluded intervention only: ${found}.` };
-  } else if (hasExcInt && hasIncInt) {
-    r.intervention = { status:'unclear', note:'Contains dietary intervention AND excluded supplement — review carefully.' };
-  } else if (hasIncInt) {
-    const found = criteria.intervention.include.filter(k => t.includes(k)).slice(0,3).join(', ');
-    r.intervention = { status:'pass', note:`Eligible dietary intervention: ${found}.` };
-  } else r.intervention = { status:'unclear', note:'Intervention not clearly stated — check for dietary component.' };
-
-  const hasSpecies = criteria.outcome.include.some(k => t.includes(k));
-  const hasLowRes = criteria.outcome.exclude_only.some(k => t.includes(k));
-  if (hasSpecies) r.outcome = { status:'pass', note:'Species-level or metagenomic resolution detected.' };
-  else if (hasLowRes) r.outcome = { status:'fail', note:'Only genus/family/phylum level or diversity metrics — insufficient resolution.' };
-  else r.outcome = { status:'unclear', note:'Microbiome resolution not stated — verify species-level reporting.' };
-
-  return r;
+  return null;
 }
 
-function getVerdict(results) {
-  const statuses = Object.values(results).map(r => r.status);
-  if (statuses.includes('fail')) return 'exclude';
-  if (statuses.includes('unclear')) return 'maybe';
-  return 'include';
+function screenOne(text) {
+  var t = text.toLowerCase();
+  var r = {};
+
+  var eD = contains(t, EXC_DESIGN);
+  var iD = contains(t, INC_DESIGN);
+  if (eD) r.studyDesign = {s:'fail', note:'Looks like a review article (' + eD + ').'};
+  else if (iD) r.studyDesign = {s:'pass', note:'Eligible study design: ' + iD + '.'};
+  else r.studyDesign = {s:'unclear', note:'Study design not identified — check full text.'};
+
+  var eP = contains(t, EXC_POP);
+  var iP = contains(t, INC_POP);
+  if (eP) r.population = {s:'fail', note:'Excluded population: ' + eP.trim() + '.'};
+  else if (iP) r.population = {s:'pass', note:'Eligible population: ' + iP + '.'};
+  else r.population = {s:'unclear', note:'Population not clearly identified — verify adults/human.'};
+
+  var eI = contains(t, EXC_INT);
+  var iI = contains(t, INC_INT);
+  if (eI && !iI) r.intervention = {s:'fail', note:'Excluded intervention: ' + eI + '.'};
+  else if (eI && iI) r.intervention = {s:'unclear', note:'Has eligible diet (' + iI + ') AND excluded supplement (' + eI + '). Review manually.'};
+  else if (iI) r.intervention = {s:'pass', note:'Eligible intervention: ' + iI + '.'};
+  else r.intervention = {s:'unclear', note:'Intervention not clearly identified.'};
+
+  var iO = contains(t, INC_OUT);
+  var eO = contains(t, EXC_OUT);
+  if (iO) r.outcome = {s:'pass', note:'Species-level resolution found: ' + iO + '.'};
+  else if (eO) r.outcome = {s:'fail', note:'Low-resolution microbiome data only: ' + eO + '.'};
+  else r.outcome = {s:'unclear', note:'Microbiome resolution unclear — verify species-level reporting.'};
+
+  var vd = 'include';
+  if (r.studyDesign.s==='fail'||r.population.s==='fail'||r.intervention.s==='fail'||r.outcome.s==='fail') vd='exclude';
+  else if (r.studyDesign.s==='unclear'||r.population.s==='unclear'||r.intervention.s==='unclear'||r.outcome.s==='unclear') vd='maybe';
+
+  return {text:text, r:r, v:vd};
 }
 
-function buildResultCard(idx, text, results, verdict) {
-  const labels = { studyDesign:'Study Design', population:'Population', intervention:'Intervention / Exposure', outcome:'Outcome Resolution' };
-  const snippet = text.trim().slice(0, 90).replace(/</g,'&lt;') + '...';
-  const rows = Object.entries(results).map(([k,v]) => `
-    <div class="criteria-row">
-      <span class="badge ${v.status === 'pass' ? 'pass' : v.status === 'fail' ? 'fail' : 'unclear'}">
-        ${v.status === 'pass' ? 'Pass' : v.status === 'fail' ? 'Fail' : 'Unclear'}
-      </span>
-      <div><div class="criteria-label">${labels[k]}</div><div class="criteria-note">${v.note}</div></div>
-    </div>`).join('');
-  const preview = text.trim().slice(0, 400).replace(/</g,'&lt;');
-  return `
-  <div class="result-card" id="card${idx}">
-    <div class="result-card-header" onclick="toggleCard(${idx})">
-      <span class="result-num">#${idx + 1}</span>
-      <span class="verdict-badge ${verdict}">${verdict === 'maybe' ? 'Unclear' : verdict.charAt(0).toUpperCase() + verdict.slice(1)}</span>
-      <span class="result-snippet">${snippet}</span>
-      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="result-card-body">
-      <div class="criteria-breakdown">${rows}</div>
-      <div class="abstract-preview">${preview}</div>
-    </div>
-  </div>`;
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-function renderResults(abstracts) {
-  lastResults = abstracts;
-  let inc = 0, exc = 0, may = 0;
-  let html = '<div class="results-container">';
-  abstracts.forEach((item, i) => {
-    if (item.verdict === 'include') inc++;
-    else if (item.verdict === 'exclude') exc++;
+function buildCard(idx, item) {
+  var labels = ['Study Design','Population','Intervention / Exposure','Outcome Resolution'];
+  var keys = ['studyDesign','population','intervention','outcome'];
+  var rows = '';
+  for (var k=0;k<keys.length;k++) {
+    var d = item.r[keys[k]];
+    rows += '<div class="crow"><span class="bd '+d.s+'">'+(d.s==='pass'?'Pass':d.s==='fail'?'Fail':'Unclear')+'</span><div><div class="clbl">'+labels[k]+'</div><div class="cnote">'+esc(d.note)+'</div></div></div>';
+  }
+  var vLabel = item.v==='maybe'?'Unclear':item.v.charAt(0).toUpperCase()+item.v.slice(1);
+  var snip = esc(item.text.trim().substring(0,85))+'...';
+  var prev = esc(item.text.trim().substring(0,350));
+  return '<div class="rc" id="rc'+idx+'"><div class="rc-hd" onclick="tog('+idx+')"><span class="rnum">#'+(idx+1)+'</span><span class="vb '+item.v+'">'+vLabel+'</span><span class="rsnip">'+snip+'</span><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="rc-bd"><div class="crows">'+rows+'</div><div class="prev">'+prev+'</div></div></div>';
+}
+
+function showResults(items) {
+  lastResults = items;
+  var inc=0,exc=0,may=0,html='<div class="results">';
+  for (var i=0;i<items.length;i++) {
+    if (items[i].v==='include') inc++;
+    else if (items[i].v==='exclude') exc++;
     else may++;
-    html += buildResultCard(i, item.text, item.results, item.verdict);
-  });
+    html += buildCard(i,items[i]);
+  }
   html += '</div>';
-
-  document.getElementById('statInc').textContent = inc;
-  document.getElementById('statExc').textContent = exc;
-  document.getElementById('statMay').textContent = may;
-  document.getElementById('resultsTitle').textContent = `Results — ${abstracts.length} Abstract${abstracts.length > 1 ? 's' : ''}`;
-  document.getElementById('resultsBody').innerHTML = html;
-  document.getElementById('resultsPanel').style.display = 'block';
-
-  // Auto-expand single result
-  if (abstracts.length === 1) toggleCard(0);
-
-  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('sI').textContent=inc;
+  document.getElementById('sE').textContent=exc;
+  document.getElementById('sM').textContent=may;
+  document.getElementById('rTitle').textContent='Results — '+items.length+' Abstract'+(items.length!==1?'s':'');
+  document.getElementById('rBody').innerHTML=html;
+  document.getElementById('rPanel').style.display='block';
+  if (items.length===1) tog(0);
+  setTimeout(function(){document.getElementById('rPanel').scrollIntoView({behavior:'smooth',block:'start'});},50);
 }
 
-function toggleCard(idx) {
-  const card = document.getElementById('card' + idx);
-  card.classList.toggle('expanded');
+function hideResults() {
+  document.getElementById('rPanel').style.display='none';
+  lastResults=[];
 }
 
-function runSingle() {
-  const text = document.getElementById('singleAbstract').value.trim();
+function tog(i) {
+  document.getElementById('rc'+i).classList.toggle('open');
+}
+
+function doSingle() {
+  var text = document.getElementById('ta1').value.trim();
   if (!text) { alert('Please paste an abstract first.'); return; }
-  const results = checkCriteria(text);
-  const verdict = getVerdict(results);
-  renderResults([{ text, results, verdict }]);
+  showResults([screenOne(text)]);
 }
 
-function runBatch() {
-  const raw = document.getElementById('batchInput').value.trim();
-  if (!raw) { alert('Please paste your abstracts first.'); return; }
-  const parts = raw.split(/
-\s*---\s*
-/).map(s => s.trim()).filter(s => s.length > 20);
-  if (parts.length === 0) { alert('No abstracts detected. Make sure to separate them with --- on its own line.'); return; }
-  const abstracts = parts.map(text => {
-    const results = checkCriteria(text);
-    return { text, results, verdict: getVerdict(results) };
-  });
-  renderResults(abstracts);
+function doBatch() {
+  var items = [];
+  var inputs = document.querySelectorAll('.batch-ta');
+  for (var i=0;i<inputs.length;i++) {
+    var t = inputs[i].value.trim();
+    if (t.length > 20) items.push(screenOne(t));
+  }
+  if (items.length===0) { alert('Please paste at least one abstract.'); return; }
+  showResults(items);
 }
 
-function switchMode(mode, btn) {
-  currentMode = mode;
-  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('singleSection').classList.toggle('visible', mode === 'single');
-  document.getElementById('batchSection').classList.toggle('visible', mode === 'batch');
+function addAbstract() {
+  var container = document.getElementById('batchInputs');
+  var idx = batchCount;
+  var row = document.createElement('div');
+  row.className = 'batch-row';
+  row.id = 'br'+idx;
+  row.innerHTML = '<div class="batch-num">'+(idx+1)+'</div><textarea class="ta batch-ta" id="ba'+idx+'" placeholder="Paste abstract '+(idx+1)+' here..."></textarea><button class="rm-btn" onclick="removeAbstract('+idx+')" title="Remove">&#x2715;</button>';
+  container.appendChild(row);
+  batchCount++;
+  document.getElementById('ba'+idx).focus();
 }
 
-function clearSingle() {
-  document.getElementById('singleAbstract').value = '';
-  document.getElementById('resultsPanel').style.display = 'none';
-  lastResults = [];
+function removeAbstract(idx) {
+  var row = document.getElementById('br'+idx);
+  if (row) row.remove();
+  renumberBatch();
 }
+
+function renumberBatch() {
+  var rows = document.querySelectorAll('.batch-row');
+  for (var i=0;i<rows.length;i++) {
+    var num = rows[i].querySelector('.batch-num');
+    if (num) num.textContent = i+1;
+  }
+}
+
 function clearBatch() {
-  document.getElementById('batchInput').value = '';
-  document.getElementById('resultsPanel').style.display = 'none';
-  lastResults = [];
+  document.getElementById('batchInputs').innerHTML = '<div class="batch-row" id="br0"><div class="batch-num">1</div><textarea class="ta batch-ta" id="ba0" placeholder="Paste abstract 1 here..."></textarea><button class="rm-btn" onclick="removeAbstract(0)" title="Remove">&#x2715;</button></div>';
+  batchCount=1;
+  hideResults();
+}
+
+function setTab(n) {
+  document.getElementById('tab1').classList.toggle('on',n===1);
+  document.getElementById('tab2').classList.toggle('on',n===2);
+  document.getElementById('pane1').classList.toggle('show',n===1);
+  document.getElementById('pane2').classList.toggle('show',n===2);
 }
 
 function exportCSV() {
   if (!lastResults.length) return;
-  const header = 'Abstract #,Verdict,Study Design,Population,Intervention,Outcome,Snippet
-';
-  const rows = lastResults.map((item, i) => {
-    const d = item.results.studyDesign.status;
-    const p = item.results.population.status;
-    const inv = item.results.intervention.status;
-    const o = item.results.outcome.status;
-    const snip = '"' + item.text.slice(0,120).replace(/"/g,'""').replace(/
-/g,' ') + '"';
-    return `${i+1},${item.verdict},${d},${p},${inv},${o},${snip}`;
-  }).join('
-');
-  const blob = new Blob([header + rows], { type: 'text/csv' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'screening_results.csv';
+  var rows = ['Abstract #,Verdict,Study Design,Population,Intervention,Outcome,Snippet'];
+  for (var i=0;i<lastResults.length;i++) {
+    var it=lastResults[i];
+    var snip='"'+it.text.substring(0,120).replace(/"/g,'""').replace(/\n/g,' ')+'"';
+    rows.push((i+1)+','+it.v+','+it.r.studyDesign.s+','+it.r.population.s+','+it.r.intervention.s+','+it.r.outcome.s+','+snip);
+  }
+  var blob=new Blob([rows.join('\n')],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='screening_results.csv';
   a.click();
 }
 
 // Dark mode
 (function(){
-  const t = document.querySelector('[data-theme-toggle]'), r = document.documentElement;
-  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
-  r.setAttribute('data-theme', d);
-  t && t.addEventListener('click', () => {
-    d = d === 'dark' ? 'light' : 'dark';
-    r.setAttribute('data-theme', d);
-    t.innerHTML = d === 'dark'
-      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  var btn=document.getElementById('darkBtn');
+  var html=document.documentElement;
+  var dark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  if(dark) html.setAttribute('data-dark','1');
+  btn.addEventListener('click',function(){
+    dark=!dark;
+    if(dark) html.setAttribute('data-dark','1');
+    else html.removeAttribute('data-dark');
+    btn.innerHTML=dark
+      ?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
   });
 })();
 </script>
